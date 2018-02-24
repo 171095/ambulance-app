@@ -18,14 +18,213 @@
   <dd><%= @ambulance.state %></dd>
   <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
   <dd><%= @ambulance.country %></dd>
+  <dt><strong>My Location</strong></dt>
+  <dd><div id="ambulance-map"></div></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              ambulances_path, :class => 'btn btn-default'  %>
+ambulances_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_ambulance_path(@ambulance), :class => 'btn btn-default' %>
+edit_ambulance_path(@ambulance), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              ambulance_path(@ambulance),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+ambulance_path(@ambulance),
+:method => 'delete',
+:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+:class => 'btn btn-danger' %>
+
+<script type="text/javascript">
+  function initMap() {
+    var lat = <%= @ambulance.latitude %>;
+    var long = <%= @ambulance.longitude %>;
+    var myLocation = {lat: lat, lng: long};
+    var map = new google.maps.Map(document.getElementById('ambulance-map'), {
+      zoom: 13,
+      center: myLocation,
+      styles: [
+      {
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#212121"
+        }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+        {
+          "visibility": "off"
+        }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#757575"
+        }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+        {
+          "color": "#212121"
+        }
+        ]
+      },
+      {
+        "featureType": "administrative",
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#757575"
+        }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#9e9e9e"
+        }
+        ]
+      },
+      {
+        "featureType": "administrative.locality",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#bdbdbd"
+        }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#757575"
+        }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#181818"
+        }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#616161"
+        }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+        {
+          "color": "#1b1b1b"
+        }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+        {
+          "color": "#2c2c2c"
+        }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#8a8a8a"
+        }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#373737"
+        }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#3c3c3c"
+        }
+        ]
+      },
+      {
+        "featureType": "road.highway.controlled_access",
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#4e4e4e"
+        }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#616161"
+        }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#757575"
+        }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+        {
+          "color": "#000000"
+        }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+          "color": "#3d3d3d"
+        }
+        ]
+      }
+      ],
+    });
+    var marker = new google.maps.Marker({
+      position: myLocation,
+      map: map
+    });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMof93EDC6Ig6LbVU5QunuMXgU5lNFzdc&callback=initMap">
+</script>
