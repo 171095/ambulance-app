@@ -54,6 +54,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Additional Gems
+  gem 'jquery-rails'
   gem "twitter-bootstrap-rails"
   gem 'devise'
   gem 'geocoder'
