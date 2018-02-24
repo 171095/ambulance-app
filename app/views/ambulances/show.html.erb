@@ -1,0 +1,31 @@
+<%- model_class = Ambulance -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:owner_name) %>:</strong></dt>
+  <dd><%= @ambulance.owner_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:mobile_number) %>:</strong></dt>
+  <dd><%= @ambulance.mobile_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ambulance_number) %>:</strong></dt>
+  <dd><%= @ambulance.ambulance_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @ambulance.city %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:zipcode) %>:</strong></dt>
+  <dd><%= @ambulance.zipcode %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
+  <dd><%= @ambulance.state %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
+  <dd><%= @ambulance.country %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              ambulances_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_ambulance_path(@ambulance), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              ambulance_path(@ambulance),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
